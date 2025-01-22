@@ -1,61 +1,58 @@
+let humanScore;
+let computerScore;
+
+// uses rand number generator to pick computer choice 
 function getComputerChoice() {
-    let computerChoice = Math.floor((Math.random() * 3) + 1);
-    if (computerChoice == 1){
+    let computerChoice = Math.floor((Math.random() * 3));
+    if (computerChoice == 0){
         return "rock";
-    } else if (computerChoice == 2){
+    } else if (computerChoice == 1){
         return "paper";
     } else {
         return "scissor";
     }
 }
 
+// create prompt to get human choice
 function getHumanChoice() {
-    let humanChoice = prompt("Will you choose rock, paper, or scissor?").toLowerCase();
+    let humanChoice = prompt("Will you choose rock, paper, or scissor?")
+    if (humanChoice == null) {return humanChoice};
+    humanChoice = humanChoice.toLowerCase();
     while (humanChoice != "rock" && humanChoice != "paper" && humanChoice != "scissor"){
         humanChoice = prompt("Invalid Choice\nWill you choose rock, paper, or scissor?").toLowerCase();
+        if (humanChoice == null) {return humanChoice};
+        humanChoice = humanChoice.toLowerCase();
     }
     return humanChoice;
 }
 
+// plays round, compare 2 inputs to deice who wins and increment winner score
+function playRound(humanChoice, computerChoice) {
+    if (humanChoice == null){
+        computerScore++;
+        return "Forfeit round. Computer scores."
+    }
+    if (humanChoice == computerChoice){
+        return "Tie. No one scores."
+    } 
+    if ((humanChoice == "rock" && computerChoice == "paper") || 
+        (humanChoice == "paper" && computerChoice == "scissor") ||
+        (humanChoice == "scissor" && computerChoice == "rock")){
+        computerScore++;
+        return "Computer scores. " + computerChoice + " beats " + humanChoice;
+    } else {
+        humanScore++;
+        return "Human scores. " + humanChoice + " beats " + computerChoice;
+    }
+}
+
+// plays rounds (default 5) of rock paper scissors
 function playGame(rounds = 5){
-    let humanScore = 0;
-    let computerScore = 0;
+    humanScore = 0;
+    computerScore = 0;
     let humanSelection;
     let computerSelection;
-    function playRound(humanChoice, computerChoice) {
-        let outcome;
-        if (humanChoice == computerChoice){
-            return "Tie. No one scores."
-        } 
-        if (humanChoice == "rock"){
-            if (computerChoice == "paper"){
-                outcome = 0;
-            } else{
-                outcome = 1;
-            }
-        } else if (humanChoice == "paper"){
-            if (computerChoice == "scissor"){
-                outcome = 0;
-            } else{
-                outcome = 1;
-            }
-        } else if (humanChoice == "scissor"){
-            if (computerChoice == "rock"){
-                outcome = 0;
-            } else{
-                outcome = 1;
-            }
-        } else{
-            return "Invalid answer. No one scores."
-        }
-        if (outcome == 0){
-            computerScore++;
-            return "You lose. " + computerChoice + " beats " + humanChoice;
-        } else {
-            humanScore++;
-            return "You win! " + humanChoice + " beats " + computerChoice;
-        }
-    }
+
     for (let i = 0; i < rounds; i++){
 
         humanSelection = getHumanChoice();
@@ -66,11 +63,11 @@ function playGame(rounds = 5){
         console.log("Computer score: " + computerScore);
     }
     if (humanScore > computerScore){
-        return "You win rock paper scissors!";
+        return "You win this game of rock paper scissors!";
     } else if (humanScore < computerScore){
-        return "You lose rock paper sicssor.";
+        return "You lose this game of rock paper scissor.";
     } else{
-        return "You tied rock paper scissor.";
+        return "You tied this game of rock paper scissor.";
     }
 }
 
