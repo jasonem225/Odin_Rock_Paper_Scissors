@@ -1,5 +1,5 @@
-let humanScore;
-let computerScore;
+let humanScore = 0;
+let computerScore = 0;
 
 // uses rand number generator to pick computer choice 
 function getComputerChoice() {
@@ -46,29 +46,39 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
-// plays rounds (default 5) of rock paper scissors
-function playGame(rounds = 5){
+function resetScores(){
     humanScore = 0;
     computerScore = 0;
+}
+
+// plays a round of rock paper scissors
+function playGame(playerChoice){
     let humanSelection;
     let computerSelection;
 
-    for (let i = 0; i < rounds; i++){
+    // humanSelection = getHumanChoice();
+    humanSelection = playerChoice;
+    computerSelection = getComputerChoice();
 
-        humanSelection = getHumanChoice();
-        computerSelection = getComputerChoice();
-
-        console.log(playRound(humanSelection, computerSelection));
-        console.log("Human score: " + humanScore);
-        console.log("Computer score: " + computerScore);
-    }
-    if (humanScore > computerScore){
+    console.log(playRound(humanSelection, computerSelection));
+    console.log("Human score: " + humanScore);
+    console.log("Computer score: " + computerScore);
+    
+    if (humanScore == 5){
+        resetScores();
         return "You win this game of rock paper scissors!";
-    } else if (humanScore < computerScore){
+    } else if (computerScore == 5){
+        resetScores();
         return "You lose this game of rock paper scissor.";
-    } else{
-        return "You tied this game of rock paper scissor.";
     }
 }
 
-console.log(playGame());
+// add event listeners to buttons to play 
+// round when one of choices clicked
+const buttons = document.querySelectorAll("button");
+
+buttons.forEach((button) => {
+  button.addEventListener("click", () => {
+    console.log(playGame(button.id));
+  });
+});
