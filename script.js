@@ -53,6 +53,9 @@ function resetScores(){
 
 // plays a round of rock paper scissors
 function playGame(playerChoice){
+    if (humanScore == 5 || computerScore == 5){
+        resetScores();
+    }
     let humanSelection;
     let computerSelection;
 
@@ -65,10 +68,8 @@ function playGame(playerChoice){
     console.log("Computer score: " + computerScore);
     
     if (humanScore == 5){
-        resetScores();
         return "You win this game of rock paper scissors!";
     } else if (computerScore == 5){
-        resetScores();
         return "You lose this game of rock paper scissor.";
     }
     return "Continue until either hits 5 wins!";
