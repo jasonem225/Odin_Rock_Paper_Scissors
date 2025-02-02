@@ -71,14 +71,20 @@ function playGame(playerChoice){
         resetScores();
         return "You lose this game of rock paper scissor.";
     }
+    return "Continue until either hits 5 wins!";
 }
 
 // add event listeners to buttons to play 
 // round when one of choices clicked
 const buttons = document.querySelectorAll("button");
+const scores = document.querySelector(".scores");
 
 buttons.forEach((button) => {
   button.addEventListener("click", () => {
     console.log(playGame(button.id));
+    // console.log("Human score: " + humanScore + "\nComputer score: " + computerScore);
+    scores.textContent = "Human score: " + humanScore + 
+                    "     Computer score: " + computerScore;
+
   });
 });
